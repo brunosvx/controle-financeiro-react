@@ -9,15 +9,15 @@ import { useContext } from 'react';
 
 export function Container() {
 
-    const { transactions, setTransactions } = useContext(TransactionsContext);
+    const { transactions } = useContext(TransactionsContext);
 
     return(
         <div className="container">
             <h4>Saldo atual</h4>
             
-            <Balance transactions={transactions} />
+            <Balance />
             
-            <TransactionsOverview transactions={transactions} />
+            <TransactionsOverview />
 
             <h3>Transações</h3>
             

@@ -3,16 +3,9 @@ import { useContext } from 'react';
 import { TransactionsContext } from '../../../contexts/Transactions';
 
 
-
 export function Transaction({ id, name, amount }){
 
-    const { transactions, setTransactions } = useContext(TransactionsContext);
-
-    function removeTransaction(removeId){
-        const updatedTransactions = transactions.filter(({ id }) => id !== removeId );
-        setTransactions(updatedTransactions);
-        localStorage.setItem('Transactions', JSON.stringify(updatedTransactions));
-    }
+    const { transactions, removeTransaction } = useContext(TransactionsContext);
 
     return (
         <li className={amount > 0 ? 'plus' : 'minus'} >

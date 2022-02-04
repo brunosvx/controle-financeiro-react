@@ -1,10 +1,13 @@
+import { useContext } from 'react';
+
+import { TransactionsContext } from '../../../contexts/Transactions';
 
 
-export function Balance({ transactions }) {
+export function Balance() {
 
-    const balance = transactions.reduce((prev, curr) => prev + curr.amount, 0);
+    const { getBalance } = useContext(TransactionsContext);
     
     return (
-        <h1 id="balance" className="balance">R$ {balance.toFixed(2).replace('.',',')}</h1>
+        <h1 id="balance" className="balance">R$ {getBalance().toFixed(2).replace('.',',')}</h1>
     )
 }

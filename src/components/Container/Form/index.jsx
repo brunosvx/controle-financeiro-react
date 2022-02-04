@@ -5,34 +5,35 @@ import { TransactionsContext } from '../../../contexts/Transactions';
 
 export function Form() {
 
-    const { transactions, setTransactions } = useContext(TransactionsContext);
+    const { addTransaction } = useContext(TransactionsContext);
 
-    const [name, setName] = useState('');
-    const [amount, setAmount] = useState(0);
+    const [inputs, setInputs] = useState({});
 
-    function addTransaction(event) {
+    function handleInput({ target }){
+        const { name, value } = target;
+        setInputs({ ...inputs, [name]: value });
+    }
+
+    function handleFormSubmit(event){
         event.preventDefault();
 
-        const newTransaction = { id: Date.now(), name, amount: Number(amount) };
-
-        setTransactions([...transactions, newTransaction])
-        localStorage.setItem('Transactions', JSON.stringify([...transactions, newTransaction]))
+        addTransaction(inputs)
     }
 
     return (
-        <form id="form" onSubmit={addTransaction}>
+        <form id="form" onSubmit={handleFormSubmit}>
                 <div className="form-control">
                 <label>Nome</label>
-                <input autoFocus type="text" id="text" placeholder="Nome da transação"
-                    onChange={e => setName(e.target.value)} required/>
+                <input autoFocus type="text" name="transactionName" placeholder="Nome da transação"
+                    onChange={handleInput} required/>
                 </div>
 
                 <div className="form-control">
                 <label>Valor <br />
                     <small>(negativo - despesas, positivo - receitas)</small>
                 </label>
-                <input type="number" id="amount" step="0.01" placeholder="Valor da transação"
-                    onChange={e => setAmount(e.target.value)} required/>
+                <input type="number" name="transactionAmount" step="0.01" placeholder="Valor da transação"
+                    onChange={handleInput} required/>
                 </div>
 
                 <button className="btn">Adicionar</button>
